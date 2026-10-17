@@ -16,11 +16,11 @@
    ✏️  在这里修改 — 平时要改的资料都在 CONFIG 里面
    ===================================================================== */
 const CONFIG = {
-  whatsapp: "60167946637",
-  phone: "016-794 6637",               // 页面上显示的联系电话            // 你的 WhatsApp 号码：60 开头，不要 "+" 和空格
+  whatsapp: "60167946637",            // 你的 WhatsApp 号码：60 开头，不要 "+" 和空格
+  phone: "016-794 6637",               // 页面上显示的联系电话
   agentName: "SC cheng",              // 预约卡片上显示的名字
   agentTitle: "专属销售顾问",
-  agentPhoto: "agent.jpg",            // 顾问照片：放在同一个文件夹（bukit-raja-factory），没有照片就显示名字首字母
+  agentPhoto: "../../agent.jpg",      // 顾问照片（仓库最外层的 agent.jpg），没有照片就显示名字首字母
   viewingSlots: ["10:30 AM", "12:30 PM", "2:30 PM", "4:30 PM", "7:00 PM"],
   daysAhead: 10,                      // 提供未来几天的日期选择
   closedWeekdays: [],                 // 例如 [1] = 星期一不开放（0 = 星期日 … 6 = 星期六）
@@ -350,10 +350,11 @@ input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;bac
 .agent .av{width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--green-950);display:grid;place-items:center;font-family:var(--serif);font-size:20px;font-weight:600}
 .agent b{display:block}
 .av{position:relative;overflow:hidden}
-.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:63% 30%;transform:scale(1.7);transform-origin:63% 32%}
+.av img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 25%;transform:scale(1.6);transform-origin:54% 35%}
 .agent .av{width:60px;height:60px;flex:none;box-shadow:0 0 0 2px var(--gold)}
 .final .agent-card{display:inline-flex;align-items:center;gap:14px;margin:30px auto 0;padding:12px 22px 12px 12px;border-radius:999px;background:rgba(8,25,15,.6);border:1px solid rgba(255,255,255,.15);text-align:left;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
 .final .agent-card .av{width:68px;height:68px;border-radius:50%;background:var(--gold);color:var(--green-950);display:grid;place-items:center;font-family:var(--serif);font-size:24px;font-weight:600;box-shadow:0 0 0 2px var(--gold);flex:none}
+.final .agent-card .av img{opacity:1;object-position:50% 25%}
 .final .agent-card b{display:block;font-size:17px}
 .final .agent-card span{font-size:13.5px;color:rgba(255,255,255,.7)}
 .agent span{font-size:13.5px;color:rgba(255,255,255,.6)}
