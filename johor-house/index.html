@@ -1,0 +1,736 @@
+<!doctype html>
+<html lang="zh-Hans">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>柔佛有地住宅精选｜Cluster · Semi-D · 排屋｜Shamnee Cheng (SC) · One Maker Realty</title>
+<meta name="description" content="柔佛精选有地住宅：Skudai、Iskandar Puteri、Johor Bahru 的 Cluster、Semi-D、排屋。按预算、地区、房间数一对一配对，立即预约看房。">
+<meta property="og:title" content="柔佛有地住宅精选｜找一个住得下全家的家">
+<meta property="og:description" content="Cluster、Semi-D、排屋，按预算和房间数帮你配对。立即预约看房。">
+<meta name="theme-color" content="#2E6B4C">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=Manrope:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<script>
+/* =====================================================================
+   ✏️  在这里修改 — 联系资料
+   ===================================================================== */
+const CONFIG = {
+  whatsapp: "60167946637",            // WhatsApp 号码：60 开头，不要 "+" 和空格
+  agentName: "Shamnee Cheng (SC)",
+  agentShort: "SC",
+  agentRen: "REN 40800 · One Maker Realty Sdn Bhd",
+  agentPhoto: "https://onemaker.listin.my/wp-content/uploads/sites/13/2025/02/photo_6131703321786958753_y-768x1024.jpg",
+  agentProfile: "https://onemaker.listin.my/author/scchengproperty/",
+  viewingSlots: ["10:00 AM", "11:30 AM", "2:30 PM", "4:00 PM", "6:00 PM"],
+  daysAhead: 10,
+  closedWeekdays: []
+};
+
+/* =====================================================================
+   🏡  住宅清单 — 要加/删房子，就在这里加/删一行
+   st: "S" = 出售, "R" = 出租 ｜ bd = 房间 ｜ ba = 浴室 ｜ bu = 建筑面积 ｜ land = 地契面积 (sqft)
+   kind: "Cluster" / "Semi-D" / "排屋" ｜ img: Listin 图片路径 ｜ slug: Listin 房源网址最后那段
+   ===================================================================== */
+const IMG_BASE = "https://onemaker.listin.my/wp-content/uploads/sites/13/";
+const LINK_BASE = "https://onemaker.listin.my/property/";
+const LISTINGS = [
+  {t:"2 Storey Cluster Corner Lot House @ Taman Opal Mutiara Mas",st:"S",price:1500000,area:"Skudai",kind:"Cluster",type:"2 层 · 角头",furn:"全装修",bd:4,ba:4,bu:3150,land:2812,img:"2026/10/img-20261015-052733-wtfa-592x444.jpg",slug:"2-storey-cluster-corner-lot-house-taman-opal-mutiara-mas",isNew:1},
+  {t:"3 Storey Cluster House @ Opal Mutiara Mas",st:"S",price:1150000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"全装修",bd:5,ba:5,bu:2969,land:2080,img:"2026/10/img-20261015-051148-a53r-592x444.jpg",slug:"3-storey-cluster-house-opal-mutiara-mas-3",isNew:1},
+  {t:"3 Storey Cluster House @ The Cove Horizon Hills",st:"S",price:2500000,area:"Iskandar Puteri",kind:"Cluster",type:"3 层",furn:"没装修",bd:5,ba:6,bu:2800,land:2800,img:"2026/09/img-20260910-000028-neu2-592x444.jpg",slug:"3-storey-cluster-house-the-cove-horizon-hills-2"},
+  {t:"3 Storey Semi-D House @ Indah Heights Mutiara Rini",st:"S",price:2180000,area:"Skudai",kind:"Semi-D",type:"3 层",furn:"部分装修",bd:5,ba:7,bu:4075,land:4760,img:"2026/09/img-20260909-062616-hz6a-592x444.jpg",slug:"3-storey-semi-d-house-indah-heights-mutiara-rini"},
+  {t:"2 Storey Terrace House @ Taman Johor Jaya",st:"S",price:388000,area:"Johor Bahru",kind:"排屋",type:"2 层",furn:"全装修",bd:2,ba:1,bu:770,land:770,img:"2026/09/img-20260907-072420-vaej-592x444.jpg",slug:"2-storey-terrace-house-taman-johor-jaya"},
+  {t:"2 Storey Semi-D House @ Eco Botanic",st:"S",price:2500000,area:"Iskandar Puteri",kind:"Semi-D",type:"2 层",furn:"全装修",bd:4,ba:4,bu:3420,land:3200,img:"2026/09/img-20260907-071224-l1se-592x444.jpg",slug:"2-storey-semi-d-house-eco-botanic"},
+  {t:"2 Storey Semi-D House @ Horizon Hills Gateway",st:"S",price:1850000,area:"Iskandar Puteri",kind:"Semi-D",type:"2 层",furn:"全装修",bd:4,ba:3,bu:3000,land:3150,img:"2026/08/img-20260831-065047-jctc-592x444.jpg",slug:"2-storey-semi-d-house-horizon-hills-gateway"},
+  {t:"3 Storey Cluster House @ The Cove Horizon Hills",st:"S",price:3200000,area:"Iskandar Puteri",kind:"Cluster",type:"3 层",furn:"没装修",bd:5,ba:6,bu:4560,land:4560,img:"2026/08/img-20260829-130219-ie4z-592x444.jpg",slug:"3-storey-cluster-house-the-cove-horizon-hills"},
+  {t:"3 Storey Cluster House @ Opal Mutiara Mas",st:"S",price:1650000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"全装修",bd:4,ba:3,bu:2730,land:1430,img:"2026/08/img-20260826-140731-rnbu-592x444.jpg",slug:"3-storey-cluster-house-opal-mutiara-mas-2"},
+  {t:"3 Storey Cluster House @ Opal Mutiara Mas",st:"S",price:1250000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"没装修",bd:5,ba:5,bu:2969,land:2080,img:"2026/08/img-20260807-100943-kbsa-592x444.jpg",slug:"3-storey-clsuter-house-opal-mutiara-mas"},
+  {t:"2 Storey Terrace Corner @ The Gateway Horizon Hills",st:"S",price:1200000,area:"Iskandar Puteri",kind:"排屋",type:"2 层 · 角头",furn:"部分装修",bd:4,ba:2,bu:0,land:1540,img:"2026/07/img-20260730-133447-okwq-592x444.jpg",slug:"2-storey-terrace-corner-the-gateway-horizon-hills"},
+  {t:"2 Storey Semi-D House @ Setia Eco Garden",st:"S",price:1310000,area:"Iskandar Puteri",kind:"Semi-D",type:"2 层",furn:"没装修",bd:4,ba:5,bu:0,land:2800,img:"2026/07/img-20260729-142109-xolg-592x444.jpg",slug:"2-storey-semi-d-house-setia-eco-garden"},
+  {t:"3 Storey Cluster House @ Taman Mutiara Bestari 2",st:"S",price:1660000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"全装修",bd:5,ba:5,bu:3300,land:3010,img:"2026/07/img-20260727-025920-ciiv-592x444.jpg",slug:"3-storey-cluster-house-taman-mutiara-bestari-2-2"},
+  {t:"2 Storey Terrace Corner Lot @ The Gateway Horizon Hills",st:"S",price:1200000,area:"Iskandar Puteri",kind:"排屋",type:"2 层 · 角头",furn:"部分装修",bd:5,ba:4,bu:0,land:1540,img:"2026/07/img-20260718-020818-m4xa-592x444.jpg",slug:"2-storey-terrace-corner-lot-the-gateway-horizon-hills"},
+  {t:"3 Storey Cluster House @ Taman Nusa Sentral",st:"S",price:1900000,area:"Iskandar Puteri",kind:"Cluster",type:"3 层",furn:"部分装修",bd:6,ba:6,bu:2240,land:3461,img:"2026/06/img-20260623-113403-ue57-592x444.jpg",slug:"3-storey-cluster-house-taman-nusa-sentral"},
+  {t:"2 Storey Terrace House @ Seri Austin",st:"S",price:750000,area:"Johor Bahru",kind:"排屋",type:"2 层",furn:"没装修",bd:4,ba:4,bu:2027,land:2027,img:"2026/05/img-20260509-061041-xu8z-592x444.jpg",slug:"2-storey-terrace-house-seri-austin"},
+  {t:"2 Storey Cluster House @ Taman Mutiara Mas",st:"S",price:1200000,area:"Skudai",kind:"Cluster",type:"2 层",furn:"没装修",bd:4,ba:4,bu:2380,land:2380,img:"2026/04/img-20260430-061107-frdh-592x444.jpg",slug:"2-storey-cluster-house-taman-mutiara-mas"},
+  {t:"2 Storey Semi-D House @ Taman Nusa Idaman",st:"S",price:1600000,area:"Iskandar Puteri",kind:"Semi-D",type:"2 层",furn:"全装修",bd:5,ba:5,bu:2540,land:3600,img:"2026/04/img-20260430-055621-dxro-592x444.jpg",slug:"2-storey-semi-d-house-taman-nusa-idaman-2"},
+  {t:"2 Storey Semi-D House @ Taman Nusa Idaman",st:"S",price:2300000,area:"Iskandar Puteri",kind:"Semi-D",type:"2 层",furn:"没装修",bd:5,ba:5,bu:2540,land:5200,img:"2026/04/img-20260430-055415-zxwv-592x444.jpg",slug:"2-storey-semi-d-house-taman-nusa-idaman"},
+  {t:"Single Storey Terrace House @ Taman Bintang, Lumut",st:"S",price:300000,area:"Perak",kind:"排屋",type:"单层",furn:"没装修",bd:3,ba:1,bu:1400,land:1400,img:"2026/04/img-20260430-055051-sqhm-592x444.jpg",slug:"single-storey-terrace-house-taman-bintang"},
+  {t:"2 Storey Terrace House @ Taman Mutiara Utama",st:"S",price:750000,area:"Johor Bahru",kind:"排屋",type:"2 层",furn:"没装修",bd:4,ba:3,bu:1300,land:1300,img:"2026/03/img-20260326-101010-ztoa-592x444.jpg",slug:"2-storey-terrace-house-taman-mutiara-utama-2"},
+  {t:"2 Storey Terrace House @ Taman Mutiara Utama",st:"S",price:758000,area:"Johor Bahru",kind:"排屋",type:"2 层",furn:"全装修",bd:4,ba:3,bu:1300,land:1300,img:"2026/03/img-20260326-100732-jcoe-592x444.jpg",slug:"2-storey-terrace-house-taman-mutiara-utama"},
+  {t:"2 Storey Terrace House @ Setia Eco Garden",st:"S",price:640000,area:"Iskandar Puteri",kind:"排屋",type:"2 层",furn:"没装修",bd:4,ba:3,bu:1400,land:1400,img:"2025/10/img-20251022-060732-k3kv-592x444.jpg",slug:"2-storey-terrace-house-setia-eco-garden"},
+  {t:"2 Storey Terrace House @ Taman Sutera Ungu",st:"S",price:1200000,area:"Johor Bahru",kind:"排屋",type:"2 层",furn:"部分装修",bd:4,ba:2,bu:2900,land:1920,img:"2025/09/img-20250926-125658-acxl-592x444.jpg",slug:"2-storey-terrace-house-taman-sutera-ungu"},
+  {t:"2.5 Storey Cluster House @ Taman Mutiara Mas Opal",st:"S",price:1500000,area:"Skudai",kind:"Cluster",type:"2.5 层",furn:"部分装修",bd:5,ba:5,bu:1430,land:2080,img:"2025/09/img-20250916-133818-ypdn-592x444.jpg",slug:"2-5-storey-cluster-house-taman-mutiara-mas-opal-2"},
+  {t:"2.5 Storey Cluster House @ Opal Mutiara Mas",st:"S",price:1300000,area:"Skudai",kind:"Cluster",type:"2.5 层",furn:"全装修",bd:5,ba:5,bu:2730,land:2730,img:"2025/09/img-20250901-131405-lwwj-592x444.jpg",slug:"2-5-storey-cluster-house-opal-mutiara-mas"},
+  {t:"2 Storey Semi-D House @ Taman Nusa Duta",st:"R",price:4000,area:"Iskandar Puteri",kind:"Semi-D",type:"2 层",furn:"部分装修",bd:4,ba:5,bu:3650,land:4000,img:"2025/08/img-20250822-150812-6z1i-592x444.jpg",slug:"2-storey-semi-d-house-taman-nusa-duta"},
+  {t:"1.5 Storey Terrace House @ Taman Pulai Utama",st:"S",price:470000,area:"Skudai",kind:"排屋",type:"1.5 层",furn:"没装修",bd:3,ba:2,bu:1540,land:1540,img:"2025/08/img-20250819-131914-oae0-592x444.jpg",slug:"1-5-storey-terrace-house-taman-pulai-utama"},
+  {t:"2 Storey Terrace House @ Taman Scientex",st:"S",price:380000,area:"Johor Bahru",kind:"排屋",type:"2 层",furn:"全装修",bd:3,ba:3,bu:1000,land:1000,img:"2025/08/photo_2025-08-12_19-33-15-592x444.jpg",slug:"2-storey-terrace-house-taman-scientex"},
+  {t:"2.5 Storey Semi-D House @ Taman Pelangi",st:"S",price:3300000,area:"Johor Bahru",kind:"Semi-D",type:"2.5 层",furn:"全装修",bd:4,ba:4,bu:6000,land:3200,img:"2025/08/photo_2025-08-01_21-28-50-592x444.jpg",slug:"2-5-storey-semi-d-house-taman-pelangi"},
+  {t:"3 Storey Cluster House @ Taman Mutiara Mas Opal",st:"S",price:1800000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"全装修",bd:0,ba:0,bu:2080,land:1430,img:"2025/08/photo_2025-08-01_21-27-31-592x444.jpg",slug:"3-storey-cluster-house-taman-mutiara-mas-opal-2"},
+  {t:"3 Storey Cluster House @ Taman Mutiara Mas Opal",st:"S",price:1600000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"全装修",bd:4,ba:4,bu:2730,land:1430,img:"2025/05/photo_2025-05-29_20-48-50-592x444.jpg",slug:"3-storey-cluster-house-taman-mutiara-mas-opal"},
+  {t:"2 Storey Cluster House @ Impiana Emas",st:"S",price:1300000,area:"Johor Bahru",kind:"Cluster",type:"2 层",furn:"没装修",bd:4,ba:4,bu:2384,land:2380,img:"2025/05/photo_2025-05-29_20-48-26-592x444.jpg",slug:"2-storey-cluster-house-impiana-emas"},
+  {t:"2.5 Storey Cluster House @ Taman Mutiara Mas Opal",st:"S",price:1300000,area:"Skudai",kind:"Cluster",type:"2.5 层",furn:"部分装修",bd:5,ba:5,bu:2484,land:1920,img:"2025/05/photo_2025-05-29_20-43-46-592x444.jpg",slug:"2-5-storey-cluster-house-taman-mutiara-mas-opal"},
+  {t:"3 Storey Cluster House @ Opal Mutiara Mas",st:"S",price:988000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"全装修",bd:4,ba:5,bu:2080,land:1430,img:"2025/05/photo_2025-05-29_20-43-11-592x444.jpg",slug:"3-storey-cluster-house-opal-mutiara-mas"},
+  {t:"3 Storey Cluster House Corner @ Taman Mutiara Mas Opal",st:"S",price:1600000,area:"Skudai",kind:"Cluster",type:"3 层 · 角头",furn:"全装修",bd:4,ba:5,bu:2730,land:1430,img:"2025/05/photo_2025-05-29_20-42-06-592x444.jpg",slug:"3-storey-cluster-house-corner-taman-mutiara-mas-opal"},
+  {t:"3 Storey Cluster House @ Opal",st:"S",price:1200000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"没装修",bd:5,ba:5,bu:2969,land:2080,img:"2025/05/photo_2025-05-29_20-42-03-592x444.jpg",slug:"3-storey-cluster-house-opal-3"},
+  {t:"3 Storey Cluster Corner House @ Opal",st:"S",price:1600000,area:"Skudai",kind:"Cluster",type:"3 层 · 角头",furn:"部分装修",bd:4,ba:5,bu:2580,land:4714,img:"2025/05/photo_2025-05-29_20-41-13-592x444.jpg",slug:"3-storey-cluster-house-corner-house-opal"},
+  {t:"3 Storey Cluster House @ Opal",st:"S",price:980000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"全装修",bd:4,ba:5,bu:2080,land:1320,img:"2025/05/photo_2025-05-29_20-41-06-592x444.jpg",slug:"3-storey-cluster-house-opal-2"},
+  {t:"3 Storey Cluster House @ Opal",st:"S",price:1500000,area:"Skudai",kind:"Cluster",type:"3 层",furn:"没装修",bd:5,ba:5,bu:2969,land:2080,img:"2025/05/photo_2025-05-23_21-16-53-592x444.jpg",slug:"3-storey-cluster-house-opal"},
+  {t:"2 Storey Cluster House @ Mutiara Rini",st:"S",price:1500000,area:"Skudai",kind:"Cluster",type:"2 层",furn:"部分装修",bd:4,ba:4,bu:3150,land:3150,img:"2025/05/photo_2025-05-23_21-16-27.jpg",slug:"2-storey-cluster-house-taman"},
+  {t:"2 Storey Cluster House @ The Gateway Horizon Hills",st:"S",price:1150000,area:"Iskandar Puteri",kind:"Cluster",type:"2 层",furn:"全装修",bd:4,ba:3,bu:2240,land:2240,img:"2025/05/photo_2025-05-23_21-12-24-592x444.jpg",slug:"2-storey-cluster-house-the-gateway-horizon-hills"}
+];
+document.documentElement.classList.add('js');
+</script>
+<style>
+:root{
+  --forest:#123524;--deep:#1F5139;--green:#2E6B4C;--green-2:#3F8A63;--leaf:#7DBB8E;
+  --mint:#EAF4EC;--mint-2:#D7EBDC;--paper:#FFFFFF;--bg:#F4F9F5;
+  --honey:#C99A4B;--honey-light:#E9CC92;--honey-dark:#9A7232;--coral:#D97A4E;
+  --ink:#14261C;--ink-2:#46594D;--ink-3:#7B8C81;
+  --line:rgba(20,38,28,.11);--line-dark:rgba(255,255,255,.16);
+  --shadow:0 1px 2px rgba(18,53,36,.06),0 14px 40px -14px rgba(18,53,36,.22);
+  --serif:"Fraunces","Noto Serif SC",Georgia,serif;
+  --sans:"Manrope","Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--sans);color:var(--ink);background:var(--bg);line-height:1.75;font-size:16.5px;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+img{display:block;max-width:100%}
+button{font:inherit;cursor:pointer;border:0;background:none;color:inherit}
+a{color:inherit}
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+@media(max-width:640px){.wrap{padding:0 16px}}
+h1,h2,h3{font-family:var(--serif);font-weight:700;line-height:1.22}
+h2{font-size:clamp(28px,4vw,48px)}
+h3{font-size:clamp(19px,2vw,23px)}
+.hl{color:var(--green-2)}
+.dark .hl{color:var(--honey-light)}
+.eyebrow{font-size:12px;letter-spacing:.18em;font-weight:800;color:var(--green);text-transform:uppercase}
+.dark .eyebrow{color:var(--honey-light)}
+.lead{font-size:clamp(16px,1.5vw,19px);color:var(--ink-2);max-width:640px}
+.dark .lead{color:rgba(255,255,255,.8)}
+.sec{padding:clamp(72px,10vw,130px) 0}
+.dark{background:var(--deep);color:#fff}
+.mint{background:var(--mint)}
+.sec-head{max-width:760px;margin-bottom:44px}
+.sec-head h2{margin:12px 0 16px}
+.center{text-align:center;margin-left:auto;margin-right:auto}.center .lead{margin:0 auto}
+.step-tag{display:inline-flex;align-items:center;gap:10px}
+.step-tag b{display:inline-grid;place-items:center;width:28px;height:28px;border-radius:50%;border:1px solid currentColor;font-size:11px;letter-spacing:0}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:10px;padding:16px 26px;border-radius:999px;font-weight:800;font-size:15.5px;text-decoration:none;transition:transform .2s,background .2s;white-space:nowrap}
+.btn-main{background:var(--green);color:#fff;box-shadow:0 12px 30px -12px rgba(46,107,76,.8)}
+.btn-main:hover{background:var(--green-2);transform:translateY(-2px)}
+.btn-honey{background:var(--honey);color:var(--forest);box-shadow:0 12px 30px -12px rgba(201,154,75,.8)}
+.btn-honey:hover{background:var(--honey-light);transform:translateY(-2px)}
+.btn-line{border:1.5px solid var(--green);color:var(--green);background:rgba(255,255,255,.6)}
+.btn-line:hover{background:#fff}
+.btn-dark{background:var(--deep);color:#fff}.btn-dark:hover{background:var(--green)}
+.btn[disabled]{opacity:.4;pointer-events:none}
+
+.js .rv{opacity:0;transform:translateY(26px);transition:opacity .8s cubic-bezier(.2,.7,.2,1),transform .8s cubic-bezier(.2,.7,.2,1)}
+.js .rv.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.js .rv{opacity:1;transform:none;transition:none}}
+
+/* nav */
+.nav{position:fixed;inset:0 0 auto;z-index:50;background:rgba(255,255,255,.82);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);transition:box-shadow .3s}
+.nav.scrolled{box-shadow:0 1px 0 var(--line),0 8px 24px -16px rgba(18,53,36,.4)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo img{width:42px;height:42px;border-radius:50%;object-fit:cover;object-position:50% 20%;border:2px solid var(--green-2)}
+.logo b{display:block;font-family:"Fraunces",serif;font-size:17px;letter-spacing:.06em;line-height:1.1;color:var(--forest)}
+.logo small{display:block;font-size:10.5px;letter-spacing:.2em;color:var(--green-2);font-weight:700}
+.nav .btn{padding:10px 18px;font-size:14px}
+
+/* hero */
+.hero{position:relative;min-height:100svh;display:flex;align-items:center;background:linear-gradient(160deg,#E2F1E6 0%,#F6FBF7 48%,#D3EADB 100%);overflow:hidden}
+.hero::before{content:"";position:absolute;width:780px;height:780px;right:-220px;top:-200px;border-radius:50%;background:radial-gradient(circle,rgba(125,187,142,.35),transparent 65%)}
+.hero::after{content:"";position:absolute;width:520px;height:520px;left:-200px;bottom:-220px;border-radius:50%;background:radial-gradient(circle,rgba(201,154,75,.18),transparent 65%)}
+.hero .wrap{position:relative;z-index:2;display:grid;grid-template-columns:1.05fr 1fr;gap:48px;align-items:center;padding-top:110px;padding-bottom:70px;width:100%}
+.pill{display:inline-flex;align-items:center;gap:10px;padding:8px 14px 8px 10px;border-radius:999px;background:#fff;border:1px solid var(--line);font-size:13px;font-weight:700;color:var(--deep);box-shadow:0 6px 16px -10px rgba(18,53,36,.4)}
+.pill .dot{width:8px;height:8px;border-radius:50%;background:#3FBF6E;animation:pulse 2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(63,191,110,.6)}70%{box-shadow:0 0 0 10px rgba(63,191,110,0)}100%{box-shadow:0 0 0 0 rgba(63,191,110,0)}}
+.hero-brand{margin:24px 0 16px}
+.hero-brand .big{font-family:"Fraunces",serif;font-weight:700;font-size:clamp(48px,8.4vw,108px);line-height:.9;letter-spacing:.02em;background:linear-gradient(180deg,#3F8A63 0%,#2E6B4C 50%,#123524 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero-brand .sub{display:flex;align-items:center;gap:14px;margin-top:10px;font-family:"Fraunces",serif;font-size:clamp(15px,2vw,22px);letter-spacing:.5em;color:var(--honey-dark);font-weight:600}
+.hero-brand .sub::after{content:"";flex:1;max-width:160px;height:1px;background:linear-gradient(90deg,var(--honey),transparent)}
+.hero h1{font-size:clamp(28px,3.6vw,44px);margin-bottom:16px;color:var(--forest)}
+.hero-ctas{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.hero-stats{display:flex;gap:30px;flex-wrap:wrap;margin-top:40px;padding-top:24px;border-top:1px solid var(--line)}
+.hero-stats div{font-size:13px;color:var(--ink-3)}
+.hero-stats b{display:block;font-family:var(--serif);font-size:30px;color:var(--green);line-height:1.1}
+.collage{position:relative;display:grid;grid-template-columns:repeat(3,1fr);gap:12px;transform:rotate(-3deg)}
+.collage figure{border-radius:18px;overflow:hidden;aspect-ratio:4/3;background:var(--mint-2);box-shadow:0 20px 40px -14px rgba(18,53,36,.45);border:4px solid #fff;animation:floaty 6s ease-in-out infinite}
+.collage figure:nth-child(3n+2){animation-delay:-2s;transform:translateY(24px)}
+.collage figure:nth-child(3n){animation-delay:-4s}
+.collage img{width:100%;height:100%;object-fit:cover}
+@keyframes floaty{50%{translate:0 -8px}}
+.collage .tag{position:absolute;left:-8px;bottom:-26px;background:var(--honey);color:var(--forest);font-weight:800;padding:12px 18px;border-radius:14px;box-shadow:0 14px 30px rgba(18,53,36,.3);transform:rotate(3deg);font-size:15px}
+@media(max-width:900px){.hero .wrap{grid-template-columns:1fr;gap:56px}}
+
+/* quiz */
+.quiz{background:var(--paper);border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow);max-width:900px;margin:0 auto;overflow:hidden}
+.quiz-top{display:flex;align-items:center;gap:18px;padding:18px 28px;border-bottom:1px solid var(--line);font-size:13px;font-weight:700;color:var(--ink-3)}
+.quiz-bar{flex:1;height:4px;background:var(--mint-2);border-radius:4px;overflow:hidden}
+.quiz-bar i{display:block;height:100%;width:33%;background:var(--green-2);transition:width .5s}
+.q{display:none;padding:34px 28px}.q.active{display:block;animation:qin .45s}
+@keyframes qin{from{opacity:0;transform:translateX(20px)}to{opacity:1;transform:none}}
+.q h3{margin-bottom:6px}.q .hint{color:var(--ink-3);font-size:14.5px;margin-bottom:22px}
+.opts{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.opt{display:flex;align-items:center;gap:12px;text-align:left;padding:16px;border:1.5px solid var(--line);border-radius:14px;background:#fff;font-weight:700;font-size:15px;transition:all .2s}
+.opt:hover{border-color:var(--green-2);transform:translateY(-2px)}
+.opt.sel{background:var(--green);border-color:var(--green);color:#fff}
+.opt .ic{flex:none;width:38px;height:38px;border-radius:50%;background:var(--mint);display:grid;place-items:center;font-size:18px}
+.opt.sel .ic{background:var(--honey)}
+.result{display:none;padding:40px 28px;text-align:center}.result.active{display:block;animation:qin .45s}
+.result .num{font-family:var(--serif);font-size:72px;line-height:1;color:var(--green)}
+.result p{color:var(--ink-2);margin:10px auto 24px;max-width:520px}
+.q-back{font-size:14px;color:var(--ink-3);font-weight:700;margin-top:18px}
+@media(max-width:640px){.q,.result{padding:26px 18px}.quiz-top{padding:14px 18px}.opts{grid-template-columns:1fr}}
+
+/* listings */
+.toolbar{display:flex;flex-wrap:wrap;gap:10px 14px;align-items:center;justify-content:space-between;margin-bottom:26px;position:sticky;top:68px;z-index:20;background:var(--bg);padding:12px 0;border-bottom:1px solid var(--line)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{padding:9px 15px;border-radius:999px;border:1.5px solid var(--line);font-weight:700;font-size:14px;background:#fff;transition:all .2s}
+.chip:hover{border-color:var(--green-2)}
+.chip.sel{background:var(--green);color:#fff;border-color:var(--green)}
+.toolbar select{padding:9px 14px;border-radius:999px;border:1.5px solid var(--line);font:inherit;font-weight:700;font-size:14px;background:#fff}
+.count{font-size:14px;color:var(--ink-3);font-weight:700}
+.count b{color:var(--ink);font-size:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:22px}
+.card{background:#fff;border-radius:22px;overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s;animation:fade .45s both}
+.card:hover{transform:translateY(-4px);box-shadow:0 1px 2px rgba(18,53,36,.06),0 26px 50px -16px rgba(18,53,36,.32)}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+.card-img{position:relative;aspect-ratio:4/3;background:linear-gradient(135deg,var(--mint-2),var(--mint));overflow:hidden}
+.card-img img{width:100%;height:100%;object-fit:cover;transition:transform .8s}
+.card:hover .card-img img{transform:scale(1.05)}
+.badges{position:absolute;top:14px;left:14px;display:flex;gap:6px}
+.badge{padding:6px 11px;border-radius:8px;font-size:12.5px;font-weight:800;letter-spacing:.04em;color:#fff;background:var(--green)}
+.badge.R{background:var(--coral)}
+.badge.new{background:var(--honey);color:var(--forest)}
+.loc{position:absolute;bottom:12px;left:14px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.92);color:var(--deep);font-size:12.5px;font-weight:800}
+.save{position:absolute;top:12px;right:12px;width:40px;height:40px;border-radius:50%;background:rgba(255,255,255,.94);display:grid;place-items:center;font-size:18px;color:var(--green);transition:transform .2s}
+.save:hover{transform:scale(1.1)}
+.save.on{background:var(--green);color:#fff}
+.card-body{padding:20px 20px 18px;display:flex;flex-direction:column;flex:1}
+.price{font-family:var(--serif);font-size:26px;font-weight:700;color:var(--deep);line-height:1.1}
+.price small{font-family:var(--sans);font-size:14px;color:var(--ink-3);font-weight:600}
+.psf{font-size:13px;color:var(--ink-3);margin-top:4px}
+.card h3{font-family:var(--sans);font-size:16px;font-weight:700;line-height:1.45;margin:10px 0 12px}
+.rooms{display:flex;gap:14px;font-size:14px;font-weight:700;color:var(--ink-2);margin-bottom:12px;flex-wrap:wrap}
+.rooms span{display:inline-flex;align-items:center;gap:6px}
+.specs{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:16px}
+.specs div{background:var(--mint);border-radius:10px;padding:9px 11px;font-size:12.5px;color:var(--ink-3)}
+.specs b{display:block;font-size:15px;color:var(--ink)}
+.card-actions{display:flex;gap:8px;margin-top:auto}
+.card-actions a{flex:1;text-align:center;white-space:nowrap;padding:12px 8px;border-radius:12px;font-weight:800;font-size:14px;text-decoration:none;transition:background .2s}
+.wa-btn{background:#25D366;color:#fff}.wa-btn:hover{background:#1EBE5A}
+.det-btn{border:1.5px solid var(--line)}.det-btn:hover{border-color:var(--green-2)}
+.empty{grid-column:1/-1;text-align:center;padding:60px 20px;color:var(--ink-3)}
+.more{display:flex;justify-content:center;margin-top:28px}
+@media(max-width:400px){.grid{grid-template-columns:1fr}}
+
+/* why */
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.why{border:1px solid var(--line-dark);border-radius:22px;padding:30px 26px;background:rgba(255,255,255,.05)}
+.why .ic{font-size:30px}
+.why h3{margin:16px 0 10px}
+.why p{color:rgba(255,255,255,.75);font-size:15px}
+@media(max-width:900px){.why-grid{grid-template-columns:1fr}}
+
+/* steps */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;counter-reset:s}
+.stp{background:#fff;border-radius:20px;padding:26px 22px;box-shadow:var(--shadow)}
+.stp::before{counter-increment:s;content:"0" counter(s);font-family:var(--serif);font-size:34px;color:var(--green-2);display:block;margin-bottom:10px}
+.stp h3{font-size:18px;margin-bottom:6px}
+.stp p{font-size:14.5px;color:var(--ink-2)}
+@media(max-width:900px){.steps{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.steps{grid-template-columns:1fr}}
+
+/* agent */
+.agent-wrap{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px;align-items:center}
+.agent-photo{position:relative;border-radius:28px;overflow:hidden;aspect-ratio:3/4;background:var(--mint-2);box-shadow:var(--shadow);max-width:420px;border:6px solid #fff}
+.agent-photo img{width:100%;height:100%;object-fit:cover}
+.agent-photo .ren{position:absolute;left:14px;bottom:14px;right:14px;padding:12px 16px;border-radius:14px;background:rgba(31,81,57,.88);backdrop-filter:blur(8px);color:#fff;font-size:13px;font-weight:700}
+.agent-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:26px 0}
+.agent-stats div{background:#fff;border-radius:14px;padding:16px 10px;text-align:center;box-shadow:var(--shadow)}
+.agent-stats b{display:block;font-family:var(--serif);font-size:28px;color:var(--green);line-height:1.1}
+.agent-stats span{font-size:12.5px;color:var(--ink-3)}
+.awards{list-style:none}
+.awards li{display:flex;gap:16px;padding:11px 0;border-bottom:1px solid var(--line);font-size:15px}
+.awards li b{flex:none;width:96px;color:var(--honey-dark);font-family:var(--serif)}
+.langs{margin-top:18px;font-size:14px;color:var(--ink-2)}
+@media(max-width:900px){.agent-wrap{grid-template-columns:1fr;gap:32px}.agent-photo{max-width:320px}}
+
+/* booking */
+.book{display:grid;grid-template-columns:1fr 1.1fr;gap:52px;align-items:start}
+.perks{list-style:none;margin:26px 0}
+.perks li{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--line-dark)}
+.perks i{flex:none;width:34px;height:34px;border-radius:50%;background:rgba(233,204,146,.2);color:var(--honey-light);display:grid;place-items:center;font-style:normal;font-weight:800}
+.perks b{display:block}.perks span{color:rgba(255,255,255,.7);font-size:14.5px}
+.form{background:#fff;color:var(--ink);border-radius:26px;padding:34px 32px;box-shadow:0 30px 80px -24px rgba(0,0,0,.45)}
+.fsteps{display:flex;gap:6px;margin-bottom:24px}
+.fsteps i{flex:1;height:4px;border-radius:4px;background:var(--mint-2);transition:background .4s}
+.fsteps i.on{background:var(--green-2)}
+.fstep{display:none}.fstep.active{display:block;animation:qin .4s}
+.fstep .hint{color:var(--ink-3);font-size:14px;margin:4px 0 18px}
+.shortlist{display:flex;flex-direction:column;gap:8px}
+.sl-item{display:flex;align-items:center;gap:12px;padding:10px;border-radius:12px;background:var(--mint)}
+.sl-item img{width:56px;height:42px;border-radius:8px;object-fit:cover;flex:none;background:var(--mint-2)}
+.sl-item div{flex:1;min-width:0;font-size:13.5px;font-weight:700;line-height:1.35}
+.sl-item small{display:block;color:var(--ink-3);font-weight:600}
+.sl-item button{font-size:18px;color:var(--ink-3);padding:4px 8px}
+.sl-empty{padding:16px;border-radius:12px;border:1.5px dashed var(--line);font-size:14px;color:var(--ink-3);text-align:center}
+.sl-empty a{color:var(--green);font-weight:800}
+.dates{display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;scroll-snap-type:x mandatory}
+.date{flex:none;scroll-snap-align:start;width:72px;padding:10px 0;border-radius:14px;border:1.5px solid var(--line);background:#fff;text-align:center}
+.date small,.date em{display:block;font-size:11.5px;font-style:normal;color:var(--ink-3);font-weight:700}
+.date b{display:block;font-family:var(--serif);font-size:26px;line-height:1.2}
+.date.sel{background:var(--green);border-color:var(--green);color:#fff}.date.sel small,.date.sel em{color:var(--honey-light)}
+.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin-top:16px}
+.slot{padding:12px 0;border-radius:12px;border:1.5px solid var(--line);background:#fff;font-weight:800;font-size:14px}
+.slot.sel{background:var(--green);border-color:var(--green);color:#fff}
+.field{margin-bottom:14px}
+.field label{display:block;font-size:13px;font-weight:800;margin-bottom:6px;color:var(--ink-2)}
+.field input,.field select{width:100%;padding:14px 15px;border-radius:12px;border:1.5px solid var(--line);background:#fff;font:inherit;font-size:16px}
+.field input:focus,.field select:focus{outline:none;border-color:var(--green-2);box-shadow:0 0 0 4px rgba(63,138,99,.15)}
+.field.err input{border-color:#C0453A}
+.field .msg{display:none;font-size:12.5px;color:#C0453A;margin-top:5px}.field.err .msg{display:block}
+.form-nav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:22px}
+.back{font-weight:800;color:var(--ink-3);font-size:14px;white-space:nowrap}
+.done{text-align:center;padding:16px 0}
+.done .ok{width:68px;height:68px;margin:0 auto 18px;border-radius:50%;background:var(--mint);color:var(--green);display:grid;place-items:center;font-size:30px}
+@media(max-width:900px){.book{grid-template-columns:1fr}.form{padding:26px 18px}}
+
+/* faq */
+.faq{max-width:820px;margin:0 auto}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:20px 0;font-weight:800;font-size:17px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";flex:none;width:32px;height:32px;border-radius:50%;border:1px solid var(--line);display:grid;place-items:center;font-weight:400;font-size:20px;transition:transform .3s}
+.faq details[open] summary::after{transform:rotate(45deg);background:var(--green);border-color:var(--green);color:#fff}
+.faq details p{padding:0 46px 20px 0;color:var(--ink-2)}
+
+.final{background:linear-gradient(160deg,#D3EADB,#F6FBF7 60%,#E2F1E6);text-align:center}
+footer{background:var(--forest);color:rgba(255,255,255,.6);font-size:12.5px;padding:36px 0 120px}
+footer p{max-width:820px}
+
+/* sticky */
+.sticky{position:fixed;left:12px;right:12px;bottom:12px;z-index:55;display:flex;gap:8px;padding:8px;border-radius:999px;background:rgba(18,53,36,.94);backdrop-filter:blur(14px);box-shadow:0 14px 40px rgba(18,53,36,.4);transform:translateY(140%);transition:transform .45s cubic-bezier(.2,.7,.2,1)}
+.sticky.show{transform:none}
+.sticky .btn{flex:1;padding:13px 16px;font-size:14.5px}
+.sticky .cnt{display:none;min-width:22px;height:22px;border-radius:11px;background:var(--forest);color:var(--honey-light);font-size:12px;place-items:center;padding:0 6px}
+.sticky .cnt.on{display:inline-grid}
+.sticky .wa{flex:none;width:48px;height:48px;border-radius:50%;background:#25D366;display:grid;place-items:center}
+.wa svg{width:24px;height:24px;fill:#fff}
+@media(min-width:900px){.sticky{left:auto;right:24px;bottom:24px}.sticky .btn{flex:none}}
+.toast{position:fixed;left:50%;bottom:86px;transform:translate(-50%,20px);opacity:0;background:var(--forest);color:#fff;padding:12px 18px;border-radius:12px;font-size:14px;font-weight:700;z-index:60;transition:all .3s;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+</style>
+</head>
+<body>
+
+<header class="nav" id="nav">
+  <div class="wrap">
+    <a class="logo" href="#top"><img id="navPhoto" alt="Shamnee Cheng"><span><b>SC CHENG</b><small>柔佛住宅顾问</small></span></a>
+    <a class="btn btn-main" href="#book">预约看房</a>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- ============ 0. 钩子 ============ -->
+<section class="hero">
+  <div class="wrap">
+    <div>
+      <span class="pill"><span class="dot"></span> <span id="heroPill">现有住宅 · 随时可看</span></span>
+      <div class="hero-brand">
+        <div class="big">JOHOR</div>
+        <div class="sub">HOME</div>
+      </div>
+      <h1>家里越来越挤？<br>是时候换一间<span class="hl">住得下全家的房子</span>了。</h1>
+      <p class="lead">告诉我你的预算、想住哪一区、需要几间房。我直接从手上的精选有地住宅帮你配对 —— Cluster、Semi-D、排屋，一次帮你看清楚。</p>
+      <div class="hero-ctas">
+        <a class="btn btn-main" href="#match">60 秒帮我配对 →</a>
+        <a class="btn btn-line" href="#listings">直接看全部房子</a>
+      </div>
+      <div class="hero-stats">
+        <div><b id="statTotal">0</b>间精选住宅</div>
+        <div><b id="statCluster">0</b>间 Cluster</div>
+        <div><b id="statSemi">0</b>间 Semi-D</div>
+        <div><b id="statTerrace">0</b>间排屋</div>
+      </div>
+    </div>
+    <div class="collage" id="collage"><span class="tag">🏡 真实房源 · 随时可看</span></div>
+  </div>
+</section>
+
+<!-- ============ 1. 配对 ============ -->
+<section class="sec" id="match">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <div class="step-tag eyebrow"><b>01</b> 快速配对</div>
+      <h2>三个问题，<span class="hl">找到你的家。</span></h2>
+      <p class="lead">不用填资料，点一点就好。结果会马上帮你筛选下面的房子。</p>
+    </div>
+    <div class="quiz rv" id="quiz">
+      <div class="quiz-top"><span id="qcount">第 1 题 / 共 3 题</span><div class="quiz-bar"><i id="qbar"></i></div><span>约 60 秒</span></div>
+      <div class="q active" data-q="budget">
+        <h3>你的预算大概多少？</h3><p class="hint">大概范围就好，看房时可以再调整。</p>
+        <div class="opts">
+          <button class="opt" data-v="a"><span class="ic">🌱</span>RM800k 以下</button>
+          <button class="opt" data-v="b"><span class="ic">🌿</span>RM800k – RM1.5M</button>
+          <button class="opt" data-v="c"><span class="ic">🌳</span>RM1.5M – RM2.5M</button>
+          <button class="opt" data-v="d"><span class="ic">🏡</span>RM2.5M 以上</button>
+          <button class="opt" data-v="all"><span class="ic">🤔</span>还不确定</button>
+        </div>
+      </div>
+      <div class="q" data-q="area">
+        <h3>你想住在哪一区？</h3><p class="hint">靠近工作、孩子学校，或家人附近。</p>
+        <div class="opts">
+          <button class="opt" data-v="Skudai"><span class="ic">🏘️</span>Skudai / Mutiara Rini</button>
+          <button class="opt" data-v="Iskandar Puteri"><span class="ic">🌇</span>Iskandar Puteri / Horizon Hills</button>
+          <button class="opt" data-v="Johor Bahru"><span class="ic">🏙️</span>Johor Bahru</button>
+          <button class="opt" data-v="all"><span class="ic">🗺️</span>哪里都可以</button>
+        </div>
+      </div>
+      <div class="q" data-q="bd">
+        <h3>需要几间房？</h3><p class="hint">算上书房、长辈房或客房。</p>
+        <div class="opts">
+          <button class="opt" data-v="3"><span class="ic">🛏️</span>3 间或以下</button>
+          <button class="opt" data-v="4"><span class="ic">👨‍👩‍👧</span>4 间</button>
+          <button class="opt" data-v="5"><span class="ic">👨‍👩‍👧‍👦</span>5 间或以上</button>
+          <button class="opt" data-v="all"><span class="ic">❓</span>还不确定</button>
+        </div>
+      </div>
+      <div class="result" id="qresult">
+        <div class="num" id="rNum">0</div>
+        <h3>间房子符合你的条件</h3>
+        <p id="rText"></p>
+        <a class="btn btn-main" href="#listings">看我的配对结果 →</a>
+        <div><button class="q-back" id="qreset">↺ 重新选择</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 2. 清单 ============ -->
+<section class="sec" id="listings" style="padding-top:0">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="step-tag eyebrow"><b>02</b> 精选住宅</div>
+      <h2>手上现有的<span class="hl">柔佛有地住宅。</span></h2>
+      <p class="lead">按 ♡ 把喜欢的加进看房清单，一次过安排看几间。想先问细节，直接按 WhatsApp。</p>
+    </div>
+    <div class="toolbar">
+      <div class="chips" id="fKind">
+        <button class="chip sel" data-v="all">全部类型</button><button class="chip" data-v="Cluster">Cluster</button><button class="chip" data-v="Semi-D">Semi-D</button><button class="chip" data-v="排屋">排屋</button>
+      </div>
+      <div class="chips" id="fArea">
+        <button class="chip sel" data-v="all">所有地区</button><button class="chip" data-v="Skudai">Skudai</button><button class="chip" data-v="Iskandar Puteri">Iskandar Puteri</button><button class="chip" data-v="Johor Bahru">Johor Bahru</button><button class="chip" data-v="Perak">Perak</button>
+      </div>
+      <div style="display:flex;gap:12px;align-items:center">
+        <span class="count"><b id="cnt">0</b> 间</span>
+        <select id="sort" aria-label="排序">
+          <option value="def">最新上架</option><option value="pa">价格 低 → 高</option><option value="pd">价格 高 → 低</option><option value="sz">面积 大 → 小</option><option value="bd">房间 多 → 少</option>
+        </select>
+      </div>
+    </div>
+    <div class="grid" id="grid"></div>
+    <div class="more"><button class="btn btn-line" id="moreBtn" style="display:none">显示更多房子 ↓</button></div>
+    <p style="font-size:12.5px;color:var(--ink-3);margin-top:22px">价格及供应情况可能随时变动，请以最新确认为准。psf 以建筑面积计算（如无则以地契面积）。</p>
+  </div>
+</section>
+
+<!-- ============ 3. 为什么 ============ -->
+<section class="sec dark" id="why">
+  <div class="wrap">
+    <div class="sec-head rv">
+      <div class="step-tag eyebrow"><b>03</b> 为什么选有地住宅</div>
+      <h2>一间有地的房子，<br><span class="hl">是全家人的底气。</span></h2>
+      <p class="lead">孩子有空间跑，长辈不用爬电梯，车子有地方停。有地住宅住得舒服，也是很多家庭最稳的资产。</p>
+    </div>
+    <div class="why-grid">
+      <div class="why rv"><div class="ic">🌳</div><h3>空间 &amp; 隐私</h3><p>前后院、更多房间、自己的车位 —— 一家几代同住也不挤。</p></div>
+      <div class="why rv"><div class="ic">🎓</div><h3>成熟社区 &amp; 学校</h3><p>Skudai、Horizon Hills、Nusa Idaman 一带配套齐全，靠近学校、商场和诊所。</p></div>
+      <div class="why rv"><div class="ic">📈</div><h3>柔佛持续增长</h3><p>柔新经济特区（JS-SEZ）和新柔捷运 RTS（预计 2026 年底通车），带动人口和住房需求。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 4. 流程 ============ -->
+<section class="sec mint">
+  <div class="wrap">
+    <div class="sec-head center rv">
+      <div class="eyebrow">怎么合作</div>
+      <h2>从看房到拿钥匙，<span class="hl">一条龙。</span></h2>
+    </div>
+    <div class="steps rv">
+      <div class="stp"><h3>配对</h3><p>了解你的预算、家庭人数和地区需求，先帮你过滤。</p></div>
+      <div class="stp"><h3>看房</h3><p>同一天安排看几间，现场讲解地契、管理费和周边配套。</p></div>
+      <div class="stp"><h3>谈价</h3><p>帮你跟屋主谈价格和交屋条件。</p></div>
+      <div class="stp"><h3>贷款 &amp; 交屋</h3><p>银行贷款、律师、文件跟进，直到你拿到钥匙。</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 5. 顾问 ============ -->
+<section class="sec" id="agent">
+  <div class="wrap agent-wrap">
+    <div class="agent-photo rv"><img id="agentPhoto" alt="Shamnee Cheng"><div class="ren" id="agentRen">REN 40800 · One Maker Realty Sdn Bhd</div></div>
+    <div class="rv">
+      <div class="step-tag eyebrow"><b>04</b> 你的顾问</div>
+      <h2 style="margin:12px 0 14px">Shamnee Cheng <span class="hl">(SC)</span></h2>
+      <p class="lead">One Maker Realty 高级房产顾问，深耕 Skudai、Iskandar Puteri 和 Johor Bahru。六年多来，陪很多家庭找到他们的家 —— 我相信最好的成交，是客户之后还会再回来找你。</p>
+      <div class="agent-stats">
+        <div><b>6+</b><span>年经验</span></div>
+        <div><b>114+</b><span>在线房源</span></div>
+        <div><b>6</b><span>项全国奖项</span></div>
+      </div>
+      <ul class="awards">
+        <li><b>2025</b>Sales Excellence 金奖</li>
+        <li><b>2021–2024</b>连续四年全国排名得奖（2023 全国 3rd Runner-up）</li>
+        <li><b>2020</b>Top Rookie Award 第 4 名</li>
+      </ul>
+      <p class="langs">语言：中文 · 粤语 · English · Bahasa Malaysia　|　<a id="agentProfile" href="#" target="_blank" rel="noopener" style="color:var(--green);font-weight:800">查看我所有房源 →</a></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ 6. 预约 ============ -->
+<section class="sec dark" id="book">
+  <div class="wrap book">
+    <div class="rv">
+      <div class="step-tag eyebrow"><b>05</b> 预约看房</div>
+      <h2 style="margin:12px 0 18px">走进去的那一刻，<br><span class="hl">你就知道是不是它。</span></h2>
+      <p class="lead">选好想看的房子和时间，我会在 WhatsApp 跟你确认。同一天可以安排看几间。</p>
+      <ul class="perks">
+        <li><i>1</i><div><b>一天看完几间</b><span>按路线安排，不浪费你周末的时间。</span></div></li>
+        <li><i>2</i><div><b>现场讲清楚</b><span>地契（永久 / 租赁）、管理费、周边学校和配套。</span></div></li>
+        <li><i>3</i><div><b>帮你谈到好价</b><span>价钱、交屋时间、家私电器，都帮你争取。</span></div></li>
+      </ul>
+    </div>
+    <div class="form rv" id="form">
+      <div class="fsteps"><i class="on"></i><i></i><i></i><i></i></div>
+      <div class="fstep active" data-f="0">
+        <h3>你想看哪几间？</h3>
+        <p class="hint">在清单里按 ♡ 加入，或者让我帮你推荐。</p>
+        <div id="shortlist"></div>
+        <div class="form-nav"><span></span><button class="btn btn-dark" id="f0next">下一步 →</button></div>
+      </div>
+      <div class="fstep" data-f="1">
+        <h3>什么时候方便？</h3>
+        <p class="hint">先选日期，再选时间。</p>
+        <div class="dates" id="dates"></div>
+        <div class="slots" id="slots"></div>
+        <div class="form-nav"><button class="back" data-goto="0">← 返回</button><button class="btn btn-dark" id="f1next" disabled>下一步 →</button></div>
+      </div>
+      <div class="fstep" data-f="2">
+        <h3>怎么称呼你？</h3>
+        <p class="hint">让我提前为你准备资料。</p>
+        <div class="field" id="fName"><label for="name">名字</label><input id="name" autocomplete="name" placeholder="例如：陈先生"><div class="msg">请填写名字。</div></div>
+        <div class="field" id="fPhone"><label for="phone">WhatsApp 号码</label><input id="phone" type="tel" inputmode="tel" autocomplete="tel" placeholder="例如：012-345 6789"><div class="msg">请填写正确的电话号码。</div></div>
+        <div class="field"><label for="who">几位家人一起住？（选填）</label><input id="who" placeholder="例如：2 大 2 小 + 长辈"></div>
+        <div class="form-nav"><button class="back" data-goto="1">← 返回</button><button class="btn btn-honey" id="submit">确认预约 →</button></div>
+      </div>
+      <div class="fstep" data-f="3">
+        <div class="done">
+          <div class="ok">✓</div>
+          <h3>就差最后一步！</h3>
+          <p class="hint" style="margin-top:8px">WhatsApp 已经打开，资料都帮你写好了。按 <b>发送</b>，我就会跟你确认时间。</p>
+          <a class="btn btn-dark" id="waAgain" href="#" target="_blank" rel="noopener">再次打开 WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="sec mint">
+  <div class="wrap">
+    <div class="sec-head center rv"><div class="eyebrow">常见问题</div><h2>你可能想问</h2></div>
+    <div class="faq rv">
+      <details><summary>清单上没有我要的，怎么办？</summary><p>这里只是公开的部分。很多屋主不想公开放盘，告诉我你的预算和条件，我帮你找没上网的房子。</p></details>
+      <details><summary>我能贷款多少？</summary><p>要看银行、你的收入和名下贷款。我可以介绍合作的银行顾问，先帮你算清楚，再去看房才不会白跑。</p></details>
+      <details><summary>除了房价，还要准备什么费用？</summary><p>一般有首期、律师费、印花税和贷款相关费用。看房时我会帮你列一个大概预算。</p></details>
+      <details><summary>我想先卖旧房子再买新的，可以吗？</summary><p>可以。我可以同时帮你卖旧房子、找新房子，把时间安排好，避免两头赶。</p></details>
+      <details><summary>看房要收费吗？</summary><p>不用。预约看房完全免费，没有压力。</p></details>
+    </div>
+  </div>
+</section>
+
+<section class="sec final">
+  <div class="wrap rv">
+    <div class="eyebrow">好房子不等人</div>
+    <h2 style="max-width:780px;margin:14px auto 20px;color:var(--forest)">你喜欢的那一间，<span class="hl">别人也在看。</span></h2>
+    <p class="lead" style="margin:0 auto 30px">现在预约，我优先为你安排。</p>
+    <a class="btn btn-main" href="#book">预约看房 →</a>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>所有房源资料、价格及照片仅供参考，可能随时变动，以最新确认为准。不构成任何要约。<br><br>Shamnee Cheng · <span id="footRen">REN 40800 · One Maker Realty Sdn Bhd</span> · 19A, Jalan Camar 1/1, Taman Perling, 81200 Johor Bahru · 016-794 6637</p>
+  </div>
+</footer>
+
+<div class="sticky" id="sticky">
+  <a class="btn btn-honey" href="#book">看房清单 <span class="cnt" id="slCnt">0</span> · 预约看房</a>
+  <a class="wa" id="waBtn" href="#" target="_blank" rel="noopener" aria-label="WhatsApp"><svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.8-.9-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.4-.5c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5l-.9-2.2c-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.1 3.2 5.1 4.5.7.3 1.3.5 1.7.6.7.2 1.4.2 1.9.1.6-.1 1.8-.7 2-1.4.2-.7.2-1.3.2-1.4-.1-.1-.3-.2-.6-.3M12 21.8c-1.8 0-3.5-.5-5-1.4l-.4-.2-3.7 1 1-3.6-.2-.4c-1-1.6-1.5-3.4-1.5-5.2C2.2 6.6 6.6 2.2 12 2.2c2.6 0 5.1 1 6.9 2.9 1.8 1.8 2.9 4.3 2.9 6.9 0 5.4-4.4 9.8-9.8 9.8m8.4-18.2C18.2 1.3 15.2 0 12 0 5.4 0 0 5.4 0 12c0 2.1.6 4.2 1.6 6L0 24l6.2-1.6c1.8 1 3.8 1.5 5.8 1.5 6.6 0 12-5.4 12-12 0-3.2-1.2-6.2-3.5-8.4"/></svg></a>
+</div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+const $=(s,c=document)=>c.querySelector(s), $$=(s,c=document)=>[...c.querySelectorAll(s)];
+const money=n=>'RM'+Math.round(n).toLocaleString('en-MY');
+const waLink=t=>'https://wa.me/'+CONFIG.whatsapp+'?text='+encodeURIComponent(t);
+const L=LISTINGS.map((x,i)=>({...x,id:i,size:Math.max(x.bu||0,x.land||0),url:LINK_BASE+x.slug+'/',src:IMG_BASE+x.img}));
+const S={kind:'all',area:'all',budget:'all',bd:'all',sort:'def',saved:new Set(),date:null,slot:null,show:12};
+
+['navPhoto','agentPhoto'].forEach(id=>{const el=$('#'+id);el.src=CONFIG.agentPhoto;el.onerror=()=>{el.style.visibility='hidden'};});
+$('#agentRen').textContent=CONFIG.agentRen; $('#footRen').textContent=CONFIG.agentRen;
+$('#agentProfile').href=CONFIG.agentProfile;
+$('#waBtn').href=waLink(`你好 ${CONFIG.agentShort}，我在找柔佛的有地住宅，可以给我更多资料吗？`);
+$('#statTotal').textContent=L.length;
+$('#statCluster').textContent=L.filter(x=>x.kind==='Cluster').length;
+$('#statSemi').textContent=L.filter(x=>x.kind==='Semi-D').length;
+$('#statTerrace').textContent=L.filter(x=>x.kind==='排屋').length;
+$('#heroPill').textContent=`现有 ${L.length} 间有地住宅 · 随时可看`;
+
+const col=$('#collage');
+[0,2,5,6,14,17].map(i=>L[i]).filter(Boolean).forEach(x=>{const f=document.createElement('figure');f.innerHTML=`<img src="${x.src}" alt="${x.t}" loading="lazy">`;col.insertBefore(f,col.querySelector('.tag'));});
+
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.1});
+$$('.rv').forEach(el=>io.observe(el));
+
+function onScroll(){
+  $('#nav').classList.toggle('scrolled',scrollY>40);
+  const b=$('#book').getBoundingClientRect();
+  $('#sticky').classList.toggle('show',scrollY>innerHeight*.6 && !(b.top<innerHeight*.6&&b.bottom>innerHeight*.3));
+}
+addEventListener('scroll',onScroll,{passive:true}); onScroll();
+
+const BUD={a:[0,800000],b:[800000,1500000],c:[1500000,2500000],d:[2500000,1e12]};
+function match(x,f){
+  if(f.kind!=='all'&&x.kind!==f.kind) return false;
+  if(f.area!=='all'&&x.area!==f.area) return false;
+  if(f.budget!=='all'&&x.st==='S'){const [lo,hi]=BUD[f.budget]; if(!(x.price>=lo&&x.price<hi)) return false;}
+  if(f.budget!=='all'&&x.st==='R') return false;
+  if(f.bd==='3'&&!(x.bd&&x.bd<=3)) return false;
+  if(f.bd==='4'&&x.bd!==4) return false;
+  if(f.bd==='5'&&!(x.bd>=5)) return false;
+  return true;
+}
+function psf(x){const a=x.bu||x.land; if(!a) return ''; const v=x.price/a; return x.st==='S'?`约 RM${v.toFixed(0)} psf`:`约 RM${v.toFixed(2)} psf / 月`;}
+function render(){
+  let list=L.filter(x=>match(x,S));
+  if(S.sort==='pa') list.sort((a,b)=>a.price-b.price);
+  if(S.sort==='pd') list.sort((a,b)=>b.price-a.price);
+  if(S.sort==='sz') list.sort((a,b)=>b.size-a.size);
+  if(S.sort==='bd') list.sort((a,b)=>b.bd-a.bd);
+  $('#cnt').textContent=list.length;
+  const g=$('#grid');
+  $('#moreBtn').style.display=list.length>S.show?'':'none';
+  if(!list.length){g.innerHTML='<div class="empty">暂时没有完全符合的房子。<br><a href="#book" style="color:var(--green);font-weight:800">告诉我你的条件，我帮你找没公开的单位 →</a></div>';return;}
+  g.innerHTML=list.slice(0,S.show).map((x,i)=>`
+    <article class="card" style="animation-delay:${Math.min(i,8)*50}ms">
+      <div class="card-img">
+        <img src="${x.src}" alt="${x.t}" loading="lazy" onerror="this.style.display='none'">
+        <div class="badges"><span class="badge ${x.st}">${x.st==='S'?'出售':'出租'}</span>${x.isNew?'<span class="badge new">新上架</span>':''}</div>
+        <span class="loc">📍 ${x.area}</span>
+        <button class="save ${S.saved.has(x.id)?'on':''}" data-id="${x.id}" aria-label="加入看房清单">${S.saved.has(x.id)?'♥':'♡'}</button>
+      </div>
+      <div class="card-body">
+        <div class="price">${money(x.price)}${x.st==='R'?' <small>/ 月</small>':''}</div>
+        <div class="psf">${psf(x)}</div>
+        <h3>${x.t}</h3>
+        <div class="rooms">${x.bd?`<span>🛏️ ${x.bd} 房</span>`:''}${x.ba?`<span>🛁 ${x.ba} 浴</span>`:''}<span>🏠 ${x.kind} · ${x.type}</span></div>
+        <div class="specs">
+          <div>建筑面积<b>${x.bu?x.bu.toLocaleString('en-MY')+' sqft':'—'}</b></div>
+          <div>地契面积<b>${x.land?x.land.toLocaleString('en-MY')+' sqft':'—'}</b></div>
+        </div>
+        <div class="card-actions">
+          <a class="wa-btn" target="_blank" rel="noopener" href="${waLink(`你好 ${CONFIG.agentShort}，我对这间房子有兴趣：\n${x.t}\n${money(x.price)}${x.st==='R'?' / 月':''}\n${x.url}`)}">WhatsApp 问这间</a>
+          <a class="det-btn" target="_blank" rel="noopener" href="${x.url}">查看详情</a>
+        </div>
+      </div>
+    </article>`).join('');
+}
+$('#moreBtn').addEventListener('click',()=>{S.show+=12;render();});
+function bindChips(id,key){$$('#'+id+' .chip').forEach(b=>b.addEventListener('click',()=>{$$('#'+id+' .chip').forEach(c=>c.classList.toggle('sel',c===b));S[key]=b.dataset.v;S.show=12;render();}));}
+bindChips('fKind','kind'); bindChips('fArea','area');
+$('#sort').addEventListener('change',e=>{S.sort=e.target.value;render();});
+function syncChips(){[['fKind','kind'],['fArea','area']].forEach(([id,k])=>$$('#'+id+' .chip').forEach(c=>c.classList.toggle('sel',c.dataset.v===S[k])));}
+
+$('#grid').addEventListener('click',e=>{
+  const b=e.target.closest('.save'); if(!b) return;
+  const id=+b.dataset.id;
+  if(S.saved.has(id)){S.saved.delete(id);toast('已从看房清单移除');} else {S.saved.add(id);toast('已加入看房清单 ♥');}
+  render(); renderSL();
+});
+function renderSL(){
+  const n=S.saved.size; const c=$('#slCnt'); c.textContent=n; c.classList.toggle('on',n>0);
+  const box=$('#shortlist');
+  if(!n){box.innerHTML='<div class="sl-empty">还没选房子。<a href="#listings">去清单按 ♡ 挑选</a>，或者直接下一步，让我帮你推荐。</div>';return;}
+  box.innerHTML='<div class="shortlist">'+[...S.saved].map(id=>{const x=L[id];return `<div class="sl-item"><img src="${x.src}" alt=""><div>${x.t}<small>${money(x.price)}${x.st==='R'?' / 月':''} · ${x.area}${x.bd?' · '+x.bd+' 房':''}</small></div><button data-rm="${id}" aria-label="移除">×</button></div>`;}).join('')+'</div>';
+}
+$('#shortlist').addEventListener('click',e=>{const b=e.target.closest('[data-rm]');if(!b)return;S.saved.delete(+b.dataset.rm);renderSL();render();});
+let tt; function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');clearTimeout(tt);tt=setTimeout(()=>t.classList.remove('show'),1600);}
+
+const qs=$$('.q'); const Q={budget:'all',area:'all',bd:'all'};
+function showQ(i){qs.forEach((q,j)=>q.classList.toggle('active',j===i));$('#qresult').classList.toggle('active',i===3);$('#qbar').style.width=(Math.min(i+1,3)/3*100)+'%';$('#qcount').textContent=i<3?`第 ${i+1} 题 / 共 3 题`:'你的配对结果';}
+qs.forEach((q,i)=>$$('.opt',q).forEach(b=>b.addEventListener('click',()=>{
+  $$('.opt',q).forEach(o=>o.classList.remove('sel'));b.classList.add('sel');
+  Q[q.dataset.q]=b.dataset.v;
+  setTimeout(()=>{ if(i<2) showQ(i+1); else finish(); },240);
+})));
+function finish(){
+  const f=()=>L.filter(x=>match(x,{kind:'all',...Q})).length;
+  let n=f(), relaxed='';
+  if(!n&&Q.bd!=='all'){Q.bd='all';n=f();relaxed='房间数';}
+  if(!n&&Q.area!=='all'){Q.area='all';n=f();relaxed=relaxed?relaxed+'和地区':'地区';}
+  Object.assign(S,Q,{kind:'all',show:12}); syncChips(); render();
+  $('#rNum').textContent=n;
+  $('#rText').textContent=n
+    ? (relaxed?`完全符合的暂时没有，我先帮你放宽了${relaxed}。`:'')+'按 ♡ 把喜欢的加进看房清单，我帮你安排同一天看完。'
+    : '公开的房子暂时没有符合的 —— 但很多好房子没上网。告诉我你的条件，我帮你找。';
+  showQ(3);
+}
+$('#qreset').addEventListener('click',()=>{$$('.opt').forEach(o=>o.classList.remove('sel'));Object.assign(Q,{budget:'all',area:'all',bd:'all'});showQ(0);});
+
+const fsteps=$$('.fstep'), fbars=$$('.fsteps i');
+function goF(i){fsteps.forEach((f,j)=>f.classList.toggle('active',j===i));fbars.forEach((b,j)=>b.classList.toggle('on',j<=i));}
+$$('[data-goto]').forEach(b=>b.addEventListener('click',()=>goF(+b.dataset.goto)));
+$('#f0next').addEventListener('click',()=>goF(1));
+const DOW=['周日','周一','周二','周三','周四','周五','周六'];
+const today=new Date(); let added=0;
+for(let i=1;added<CONFIG.daysAhead&&i<60;i++){
+  const d=new Date(today.getFullYear(),today.getMonth(),today.getDate()+i);
+  if(CONFIG.closedWeekdays.includes(d.getDay())) continue; added++;
+  const b=document.createElement('button');b.className='date';
+  b.innerHTML=`<small>${i===1?'明天':DOW[d.getDay()]}</small><b>${d.getDate()}</b><em>${d.getMonth()+1}月</em>`;
+  b.dataset.label=`${d.getMonth()+1}月${d.getDate()}日（${DOW[d.getDay()]}）`;
+  b.addEventListener('click',()=>{$$('.date').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');S.date=b.dataset.label;chk();});
+  $('#dates').appendChild(b);
+}
+CONFIG.viewingSlots.forEach(t=>{const b=document.createElement('button');b.className='slot';b.textContent=t;b.addEventListener('click',()=>{$$('.slot').forEach(x=>x.classList.remove('sel'));b.classList.add('sel');S.slot=t;chk();});$('#slots').appendChild(b);});
+function chk(){$('#f1next').disabled=!(S.date&&S.slot);}
+$('#f1next').addEventListener('click',()=>goF(2));
+$('#submit').addEventListener('click',()=>{
+  const name=$('#name').value.trim(), phone=$('#phone').value.trim(), who=$('#who').value.trim();
+  const okN=name.length>=1, okP=phone.replace(/\D/g,'').length>=9;
+  $('#fName').classList.toggle('err',!okN); $('#fPhone').classList.toggle('err',!okP);
+  if(!okN||!okP) return;
+  const picks=[...S.saved].map((id,k)=>`${k+1}. ${L[id].t}（${money(L[id].price)}${L[id].st==='R'?'/月':''}）`).join('\n');
+  const budTxt={a:'RM800k 以下',b:'RM800k–1.5M',c:'RM1.5M–2.5M',d:'RM2.5M 以上'}[S.budget];
+  const want=[budTxt, S.area!=='all'?S.area:'', S.bd!=='all'?(S.bd==='5'?'5 房以上':S.bd==='3'?'3 房或以下':'4 房'):''].filter(Boolean).join(' · ');
+  const msg=`你好 ${CONFIG.agentShort}，我想预约看房。\n\n名字：${name}\n电话：${phone}`+(who?`\n家庭成员：${who}`:'')+`\n希望时间：${S.date} ${S.slot}`+(picks?`\n\n想看的房子：\n${picks}`:'\n\n想看的房子：请帮我推荐')+(want?`\n需求：${want}`:'');
+  const link=waLink(msg); $('#waAgain').href=link; goF(3); window.open(link,'_blank');
+});
+
+render(); renderSL();
+})();
+</script>
+</body>
+</html>
